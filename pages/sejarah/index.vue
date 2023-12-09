@@ -15,15 +15,38 @@
         <!-- header end -->
 
         <section class="pt-8">
-            <div class="ml-28 text-black text-3xl font-bold">SEJARAH SINGKAT
+            <div id="sejarah">
+                <div v-for="item in sejarahData" :key="item.id">
+                    <div style="margin-bottom: 50px;">
+                        <p class="font-medium" style="font-size: medium;" v-html="item.isi"></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- <div class="ml-28 text-black text-3xl font-bold">SEJARAH SINGKAT
                 <img src="../assets/image/Rectangle19.png" class="ml-100">
             </div>
             <div class="w-[100vw] text-black text-base font-medium text-justify justify-center ml-28 mt-10 pr-56">Fakultas Teknik (FT) adalah salah satu fakultas pada Universitas Hasanuddin (UNHAS) Makassar, berdiri tahun 1960. Ketika itu kampus UNHAS masih berlokasi di Baraya. Misi utama pendirian Fakultas Teknik pada masa itu adalah memberi peluang kepada putera-puteri yang berasal dari daerah untuk menempuh jenjang pendidikan tinggi dalam rangka memenuhi kebutuhan tenaga ahli bidang Teknik.<br/><br/>     Pada mulanya kurikulum Fakultas Teknik hanya merupakan kurikulum tunggal dengan beberapa matakuliah pilihan yang terbatas. Kurikulum ini mengalami berbagai perubahan dan perkembangan sejak tahun 1963, termasuk peralihan dari Program Sarjana Muda, Program Sarjana 6 tahun, sampai ke Program Strata satu.</div>
             <img src="../assets/image/teknikpindah.png" alt="error" class="w-[700px] h-[400px] mx-72 my-10">
-            <div class="w-[100vw] text-black text-base font-medium text-justify justify-center  ml-28 mt-10 mb-20 pr-56">Pada tahun 1985, Fakultas Teknik UNHAS pindah kampus ke Tamalanrea. Fakultas Teknik menempati lantai 1 gedung dan sebagian gedung Heavy Laboratory. Bersamaan dengan itu, dilaksanakanlah pengadaan peralatan laboratorium yang baru. Selama sepuluh tahun dari tahun 1986 sampai tahun 1996, Fakultas Teknik mendapatkan Proyek Percepatan Insinyur (PPI) yang bertujuan meningkatkan produktivitas kelulusan.<br/><br/>      Pada awalnya Fakultas Teknik Universitas Hasanuddin pada tanggal 10 September 1960 hanya terdapat 3 jurusan, yakni Teknik Sipil, Teknik Mesin dan Teknik Perkapalan. Selanjutnya Fakultas Teknik mempunyai 6 jurusan dengan membuka Jurusan Teknik Elektro, Teknik Arsitektur dan Teknik Geologi dengan total program studi sebanyak 23.<br/><br/>       Seiring perkembangan, Fakultas Teknik Unhas maka dibangun pula Fakultas Teknik yang berada di Kampus Teknik Gowa yang saat ini telah diresmikan oleh Wakil Presiden RI, Bapak Jusuf Kalla pada tanggal 23 Juni 2018. Saat ini Fakultas Teknik memiliki 13 Departemen Sarjana, 6 Program Studi Magister , 5 Program Studi Doktor dan 1 Program Studi Pendidikan Profesi Insinyur (PPI).</div>
+            <div class="w-[100vw] text-black text-base font-medium text-justify justify-center  ml-28 mt-10 mb-20 pr-56">Pada tahun 1985, Fakultas Teknik UNHAS pindah kampus ke Tamalanrea. Fakultas Teknik menempati lantai 1 gedung dan sebagian gedung Heavy Laboratory. Bersamaan dengan itu, dilaksanakanlah pengadaan peralatan laboratorium yang baru. Selama sepuluh tahun dari tahun 1986 sampai tahun 1996, Fakultas Teknik mendapatkan Proyek Percepatan Insinyur (PPI) yang bertujuan meningkatkan produktivitas kelulusan.<br/><br/>      Pada awalnya Fakultas Teknik Universitas Hasanuddin pada tanggal 10 September 1960 hanya terdapat 3 jurusan, yakni Teknik Sipil, Teknik Mesin dan Teknik Perkapalan. Selanjutnya Fakultas Teknik mempunyai 6 jurusan dengan membuka Jurusan Teknik Elektro, Teknik Arsitektur dan Teknik Geologi dengan total program studi sebanyak 23.<br/><br/>       Seiring perkembangan, Fakultas Teknik Unhas maka dibangun pula Fakultas Teknik yang berada di Kampus Teknik Gowa yang saat ini telah diresmikan oleh Wakil Presiden RI, Bapak Jusuf Kalla pada tanggal 23 Juni 2018. Saat ini Fakultas Teknik memiliki 13 Departemen Sarjana, 6 Program Studi Magister , 5 Program Studi Doktor dan 1 Program Studi Pendidikan Profesi Insinyur (PPI).</div> -->
         </section>
     </main>
-    
-    
-
 </template>
+
+<script setup>
+    import { ref, computed, onMounted } from "vue";
+
+    const endpoint = "http://localhost:8055/items/sejarah"
+    const sejarahData = ref('');
+
+    async function getSejarah() {
+        const api = await fetch(endpoint)
+        const data = await api.json()
+        console.log(data.data)
+        sejarahData.value = data.data
+    }
+
+    onMounted(() => {
+        getSejarah();
+    })
+</script>
